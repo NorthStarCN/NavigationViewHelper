@@ -151,7 +151,7 @@ namespace LeftNavigationDemo
                 currentViewItem = selectedItem;
                 GoForwardViewItemStack.Clear();
             }
-            if (mode == NavigationMode.Forward)
+            else if (mode == NavigationMode.Forward)
             {
                 var nextViewItem = GoForwardViewItemStack.Pop();
                 if (nextViewItem != null)
