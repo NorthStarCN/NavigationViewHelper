@@ -55,6 +55,7 @@ namespace LeftNavigationDemo
             {
                 // Update the Back button whenever a navigation occurs.
                 UpdateBackButton();
+                //当导航发生时自动更新导航控件左侧所选项目
                 UpdateNavigationViewSelectedItem(e.NavigationMode);
             };
             this.CurrentNavView = currentNavView;
