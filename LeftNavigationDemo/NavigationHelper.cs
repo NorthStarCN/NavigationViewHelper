@@ -58,6 +58,17 @@ namespace LeftNavigationDemo
                 //当导航发生时自动更新导航控件左侧所选项目
                 UpdateNavigationViewSelectedItem(e.NavigationMode);
             };
+
+            this.Frame.Navigating += (s, e) =>
+            {
+                //不允许再次导航到同一页面
+                if(e.NavigationMode == NavigationMode.New &&
+                currentViewItem == this.CurrentNavView.SelectedItem)
+                {
+                    e.Cancel = true;
+                }
+            };
+
             this.CurrentNavView = currentNavView;
             this.GoBackViewItemStack = new Stack<NavigationViewItem>();
             this.GoForwardViewItemStack = new Stack<NavigationViewItem>();
