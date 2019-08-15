@@ -1,38 +1,63 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
-namespace LeftNavigationDemo
+namespace NavigationDemo
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
     public sealed partial class ItemPage : Page
     {
+        private string PageName;
+        private List<VirtualGridViewItem> Items;
+
         public ItemPage()
         {
             this.InitializeComponent();
+            this.Items = GenerateVirtualGridViewItems();
+            //this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            pageDescription = $"You opened {e.Parameter as string} page.";
+            PageName = e.Parameter as string;
             //base.OnNavigatedTo(e);
         }
 
-        private string pageDescription;
+        private Color[] colors = new Color[]
+        {
+            Colors.Chocolate,
+            Colors.DarkSlateBlue,
+            Colors.DeepPink,
+            Colors.Purple
+        };
+
+        private List<VirtualGridViewItem> GenerateVirtualGridViewItems()
+        {
+            int count = new Random().Next(16);
+            List<VirtualGridViewItem> items = new List<VirtualGridViewItem>();
+            for (int index = 0; index < count; index++)
+            {
+                VirtualGridViewItem item = new VirtualGridViewItem()
+                {
+                    Name = $"Rectangle {index + 1}",
+                    Color = new SolidColorBrush(colors[index % (colors.Length)])
+                };
+                items.Add(item);
+            }
+            return items;
+        }
+    }
+
+    class VirtualGridViewItem
+    {
+        public string Name { get; set; }
+        public SolidColorBrush Color { get; set; }
     }
 }

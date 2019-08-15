@@ -1,12 +1,26 @@
 ﻿<Page
-    x:Class="LeftNavigationDemo.MainPage"
+    x:Class="NavigationDemo.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LeftNavigationDemo"
+    xmlns:local="using:NavigationDemo"
+    xmlns:nv="using:NavigationDemo.Controls.NavigationView"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <nv:MenuItemTemplateSelector x:Key="Selector">
+            <nv:MenuItemTemplateSelector.ItemTemplate>
+                <DataTemplate x:DataType="nv:Category">
+                    <NavigationViewItem Content="{x:Bind Name}" ToolTipService.ToolTip="{x:Bind Tooltip}">
+                        <NavigationViewItem.Icon>
+                            <SymbolIcon Symbol="{x:Bind Glyph}"/>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </nv:MenuItemTemplateSelector.ItemTemplate>
+        </nv:MenuItemTemplateSelector>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
         <Border x:Name="AppTitleBar"
@@ -23,18 +37,11 @@
 
         <NavigationView x:Name="NavigationViewControl"
                         IsPaneOpen="True" IsTabStop="False"
-                        ItemInvoked="NavigationView_ItemInvoked">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Icon="People" Content="People"/>
-                <NavigationViewItem Icon="Shop" Content="Shop"/>
-                <NavigationViewItem Icon="Document" Content="Documents"/>
-                <NavigationViewItem Icon="Emoji" Content="Picture"/>
-            </NavigationView.MenuItems>
+                        ItemInvoked="NavigationView_ItemInvoked"
+                        MenuItemTemplateSelector="{StaticResource Selector}"
+                        MenuItemsSource="{x:Bind Categories, Mode=OneWay}">
             <NavigationView.Content>
-                <Frame x:Name="RootFrame"
-                       HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="48"/>
+                <Frame x:Name="RootFrame" Grid.Row="1"/>
             </NavigationView.Content>
         </NavigationView>
     </Grid>

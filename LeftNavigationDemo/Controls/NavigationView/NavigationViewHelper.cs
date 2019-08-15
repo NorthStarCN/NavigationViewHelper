@@ -13,7 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace LeftNavigationDemo
+namespace NavigationDemo.Controls.NavigationView
 {
     /// <summary>
     /// RootFrameNavigationHelper registers for standard mouse and keyboard
@@ -39,9 +39,9 @@ namespace LeftNavigationDemo
         SystemNavigationManager systemNavigationManager;
         private Windows.UI.Xaml.Controls.NavigationView CurrentNavView { get; set; }
 
-        Stack<NavigationViewItem> GoBackViewItemStack;
-        Stack<NavigationViewItem> GoForwardViewItemStack;
-        NavigationViewItem currentViewItem;
+        Stack<object> GoBackViewItemStack;
+        Stack<object> GoForwardViewItemStack;
+        object currentViewItem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RootNavigationHelper"/> class.
@@ -70,8 +70,8 @@ namespace LeftNavigationDemo
             };
 
             this.CurrentNavView = currentNavView;
-            this.GoBackViewItemStack = new Stack<NavigationViewItem>();
-            this.GoForwardViewItemStack = new Stack<NavigationViewItem>();
+            this.GoBackViewItemStack = new Stack<object>();
+            this.GoForwardViewItemStack = new Stack<object>();
 
             // Handle keyboard and mouse navigation requests
             this.systemNavigationManager = SystemNavigationManager.GetForCurrentView();
@@ -147,14 +147,14 @@ namespace LeftNavigationDemo
         }
 
         /// <summary>
-        /// 导航时更新NavigationView所在对应的ViewItem项目UI界面
+        /// 导航时更新NavigationView所在的ViewItem项目UI界面
         /// </summary>
         /// <param name="mode">导航模式</param>
         private void UpdateNavigationViewSelectedItem(NavigationMode mode)
         {
             if(mode == NavigationMode.New)
             {
-                var selectedItem = this.CurrentNavView.SelectedItem as NavigationViewItem;
+                var selectedItem = this.CurrentNavView.SelectedItem;
                 if(currentViewItem!=null)
                 {
                     GoBackViewItemStack.Push(currentViewItem);
@@ -164,22 +164,28 @@ namespace LeftNavigationDemo
             }
             else if (mode == NavigationMode.Forward)
             {
-                var nextViewItem = GoForwardViewItemStack.Pop();
-                if (nextViewItem != null)
+                if (GoForwardViewItemStack.Count > 0)
                 {
-                    this.CurrentNavView.SelectedItem = nextViewItem;
-                    GoBackViewItemStack.Push(currentViewItem);
-                    currentViewItem = nextViewItem;
+                    var nextViewItem = GoForwardViewItemStack.Pop();
+                    if (nextViewItem != null)
+                    {
+                        this.CurrentNavView.SelectedItem = nextViewItem;
+                        GoBackViewItemStack.Push(currentViewItem);
+                        currentViewItem = nextViewItem;
+                    }
                 }
             }
             else if (mode == NavigationMode.Back)
             {
-                var previousViewItem = GoBackViewItemStack.Pop();
-                if (previousViewItem != null)
+                if (GoBackViewItemStack.Count > 0)
                 {
-                    this.CurrentNavView.SelectedItem = previousViewItem;
-                    GoForwardViewItemStack.Push(currentViewItem);
-                    currentViewItem = previousViewItem;
+                    var previousViewItem = GoBackViewItemStack.Pop();
+                    if (previousViewItem != null)
+                    {
+                        this.CurrentNavView.SelectedItem = previousViewItem;
+                        GoForwardViewItemStack.Push(currentViewItem);
+                        currentViewItem = previousViewItem;
+                    }
                 }
             }
         }

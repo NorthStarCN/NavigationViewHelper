@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeftNavigationDemo", "LeftNavigationDemo\LeftNavigationDemo.csproj", "{0195EFB3-C101-45A7-9D3F-50D6DD0B6392}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NavigationDemo", "LeftNavigationDemo\NavigationDemo.csproj", "{0195EFB3-C101-45A7-9D3F-50D6DD0B6392}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E8A11807-1947-4A1B-81DE-A4EB18B1E90A}"
 	ProjectSection(SolutionItems) = preProject

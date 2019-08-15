@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace LeftNavigationDemo
+namespace NavigationDemo
 {
     /// <summary>
     /// 提供特定于应用程序的行为，以补充默认的应用程序类。
@@ -42,6 +42,7 @@ namespace LeftNavigationDemo
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            #region 设置标题栏
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -54,6 +55,7 @@ namespace LeftNavigationDemo
             {
                 titleBar.ButtonForegroundColor = Colors.Black;
             }
+            #endregion
 
             Frame rootFrame = Window.Current.Content as Frame;
 

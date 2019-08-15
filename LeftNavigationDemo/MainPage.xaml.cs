@@ -1,23 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using NavigationDemo.Controls.NavigationView;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
-namespace LeftNavigationDemo
+namespace NavigationDemo
 {
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
@@ -26,10 +16,22 @@ namespace LeftNavigationDemo
     {
         RootFrameNavigationHelper navigationHelper;
 
+        private List<CategoryBase> Categories = new List<CategoryBase>()
+        {
+            new Category() { Name = "Home", Glyph = Symbol.Home, Tooltip = "Home" },
+            new Category() { Name = "Friends", Glyph = Symbol.People, Tooltip = "Friends" },
+            new Separator(),
+            new Category() { Name = "Shop", Glyph = Symbol.Shop, Tooltip = "Shop" },
+            new Category() { Name = "Favorite", Glyph = Symbol.Favorite, Tooltip = "Favorite" },
+            new Header() { Name = "Files" },
+            new Category() { Name = "Documents", Glyph = Symbol.Document, Tooltip = "Documents" },
+            new Category() { Name = "Picture", Glyph = Symbol.Pictures, Tooltip = "Pictures" },
+            new Category() { Name = "Music", Glyph = Symbol.MusicInfo, Tooltip = "Music" }
+        };
+
         public MainPage()
         {
             this.InitializeComponent();
-
             navigationHelper = new RootFrameNavigationHelper(RootFrame, NavigationViewControl);
         }
 
