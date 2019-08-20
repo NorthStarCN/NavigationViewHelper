@@ -35,19 +35,21 @@ namespace NavigationDemo
             navigationHelper = new RootFrameNavigationHelper(RootFrame, NavigationViewControl);
         }
 
-        private void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private async void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             string pageName = string.Empty;
             if (args.IsSettingsInvoked)
             {
                 pageName = "Settings";
+                SettingsDialog dialog = new SettingsDialog();
+                await dialog.ShowAsync();
             }
             else
             {
                 var invokedItem = args.InvokedItemContainer;
                 pageName = invokedItem.Content as string;
+                RootFrame.Navigate(typeof(ItemPage), pageName);
             }
-            RootFrame.Navigate(typeof(ItemPage), pageName);
         }
     }
 }

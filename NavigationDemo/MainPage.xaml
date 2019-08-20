@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
     <Page.Resources>
         <nv:MenuItemTemplateSelector x:Key="Selector">
             <nv:MenuItemTemplateSelector.ItemTemplate>
@@ -22,14 +22,14 @@
         </nv:MenuItemTemplateSelector>
     </Page.Resources>
 
-    <Grid Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}">
+    <Grid>
         <Border x:Name="AppTitleBar"
                 IsHitTestVisible="True"
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Canvas.ZIndex="1">
             <TextBlock x:Name="AppTitle"
-                       Text="Left Navigation Demo"
+                       Text="Navigation Demo"
                        VerticalAlignment="Top"
                        Margin="16,8,0,0"
                        Style="{StaticResource CaptionTextBlockStyle}" />
@@ -41,7 +41,7 @@
                         MenuItemTemplateSelector="{StaticResource Selector}"
                         MenuItemsSource="{x:Bind Categories, Mode=OneWay}">
             <NavigationView.Content>
-                <Frame x:Name="RootFrame" Grid.Row="1"/>
+                <Frame x:Name="RootFrame"/>
             </NavigationView.Content>
         </NavigationView>
     </Grid>

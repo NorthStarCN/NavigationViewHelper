@@ -42,21 +42,6 @@ namespace NavigationDemo
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            #region 设置标题栏
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            if (Current.RequestedTheme == ApplicationTheme.Dark)
-            {
-                titleBar.ButtonForegroundColor = Colors.White;
-            }
-            else
-            {
-                titleBar.ButtonForegroundColor = Colors.Black;
-            }
-            #endregion
-
             Frame rootFrame = Window.Current.Content as Frame;
 
             // 不要在窗口已包含内容时重复应用程序初始化，
@@ -113,6 +98,30 @@ namespace NavigationDemo
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: 保存应用程序状态并停止任何后台活动
             deferral.Complete();
+        }
+
+        private void InitializeApplicationUI()
+        {
+            #region 设置标题栏
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            if (Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                titleBar.ButtonForegroundColor = Colors.White;
+            }
+            else
+            {
+                titleBar.ButtonForegroundColor = Colors.Black;
+            }
+            #endregion
+            #region 设置主题
+            LocalSettings settings = LocalSettings.Settings;
+            this.RequestedTheme = settings.RequestedTheme == "Light" ? ApplicationTheme.Light :
+                settings.RequestedTheme == "Dark" ? ApplicationTheme.Dark :
+                this.RequestedTheme;
+            #endregion
         }
     }
 }

@@ -30,6 +30,12 @@ namespace NavigationDemo
             //base.OnNavigatedTo(e);
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            this.Items.Clear();
+            //base.OnNavigatingFrom(e);
+        }
+
         private Color[] colors = new Color[]
         {
             Colors.Chocolate,
