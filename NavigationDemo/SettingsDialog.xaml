@@ -11,9 +11,9 @@
     DefaultButton="Primary">
     <StackPanel Orientation="Vertical">
         <TextBlock>Auto navigate to home page when app started?</TextBlock>
-        <ToggleSwitch OnContent="OK" OffContent="No" IsOn="{x:Bind settings.AutoNavigateToHome, Mode=TwoWay}"/>
+        <ToggleSwitch OnContent="OK" OffContent="No" IsOn="{x:Bind local:LocalSettings.Settings.AutoNavigateToHome, Mode=TwoWay}"/>
         <TextBlock>Select a theme:</TextBlock>
-        <ComboBox SelectedItem="{x:Bind settings.RequestedTheme, Mode=TwoWay}"
+        <ComboBox SelectedItem="{x:Bind local:LocalSettings.Settings.RequestedTheme, Mode=TwoWay}"
                   ItemsSource="{x:Bind Themes}">
         </ComboBox>
         <TextBlock>Theme will work after restarting the app.</TextBlock>

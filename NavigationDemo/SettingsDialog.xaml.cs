@@ -7,8 +7,6 @@ namespace NavigationDemo
 {
     public sealed partial class SettingsDialog : ContentDialog
     {
-        private LocalSettings settings;
-
         private string[] Themes = new string[]
         {
             "Auto","Dark","Light"
@@ -17,7 +15,6 @@ namespace NavigationDemo
         public SettingsDialog()
         {
             this.InitializeComponent();
-            settings = new LocalSettings();
         }
     }
 
@@ -37,7 +34,7 @@ namespace NavigationDemo
         }
 
         private ApplicationDataContainer localSettings;
-        public LocalSettings()
+        private LocalSettings()
         {
             localSettings = ApplicationData.Current.LocalSettings;
         }
