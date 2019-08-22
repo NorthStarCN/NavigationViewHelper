@@ -33,6 +33,7 @@ namespace NavigationDemo
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.InitializeTheme();
         }
 
         /// <summary>
@@ -42,8 +43,8 @@ namespace NavigationDemo
         /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            this.InitializeApplicationUI();
             Frame rootFrame = Window.Current.Content as Frame;
-
             // 不要在窗口已包含内容时重复应用程序初始化，
             // 只需确保窗口处于活动状态
             if (rootFrame == null)
@@ -100,9 +101,11 @@ namespace NavigationDemo
             deferral.Complete();
         }
 
+        /// <summary>
+        /// 设置标题栏
+        /// </summary>
         private void InitializeApplicationUI()
         {
-            #region 设置标题栏
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -115,13 +118,17 @@ namespace NavigationDemo
             {
                 titleBar.ButtonForegroundColor = Colors.Black;
             }
-            #endregion
-            #region 设置主题
+        }
+
+        /// <summary>
+        /// 设置主题
+        /// </summary>
+        private void InitializeTheme()
+        {
             LocalSettings settings = LocalSettings.Settings;
             this.RequestedTheme = settings.RequestedTheme == "Light" ? ApplicationTheme.Light :
                 settings.RequestedTheme == "Dark" ? ApplicationTheme.Dark :
                 this.RequestedTheme;
-            #endregion
         }
     }
 }

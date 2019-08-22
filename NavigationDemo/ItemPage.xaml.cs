@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
@@ -36,24 +37,17 @@ namespace NavigationDemo
             //base.OnNavigatingFrom(e);
         }
 
-        private Color[] colors = new Color[]
-        {
-            Colors.Chocolate,
-            Colors.DarkSlateBlue,
-            Colors.DeepPink,
-            Colors.Purple
-        };
-
         private List<VirtualGridViewItem> GenerateVirtualGridViewItems()
         {
-            int count = new Random().Next(16);
+            int count = new Random().Next(1, 16);
             List<VirtualGridViewItem> items = new List<VirtualGridViewItem>();
+            Color[] colors = ColorHelper.RandomColors(count);
             for (int index = 0; index < count; index++)
             {
                 VirtualGridViewItem item = new VirtualGridViewItem()
                 {
                     Name = $"Rectangle {index + 1}",
-                    Color = new SolidColorBrush(colors[index % (colors.Length)])
+                    Color = new SolidColorBrush(colors[index])
                 };
                 items.Add(item);
             }
@@ -65,5 +59,24 @@ namespace NavigationDemo
     {
         public string Name { get; set; }
         public SolidColorBrush Color { get; set; }
+    }
+
+    public static class ColorHelper
+    {
+        public static Color[] RandomColors(int count)
+        {
+            Random random = new Random();
+            Color[] colors = new Color[count];
+            for(int index = 0; index < count; index++)
+            {
+                byte colorA = (byte)(random.Next(0, 10000) % 256);
+                byte colorR = (byte)(random.Next(0, 10000) % 256);
+                byte colorG = (byte)(random.Next(0, 10000) % 256);
+                byte colorB = (byte)(random.Next(0, 10000) % 256);
+                Color color = Color.FromArgb(colorA, colorR, colorG, colorB);
+                colors[index] = color;
+            }
+            return colors;
+        }
     }
 }

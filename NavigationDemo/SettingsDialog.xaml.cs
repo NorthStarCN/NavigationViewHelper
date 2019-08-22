@@ -23,7 +23,18 @@ namespace NavigationDemo
 
     public class LocalSettings
     {
-        public static LocalSettings Settings = new LocalSettings();
+        private static LocalSettings settings;
+        public static LocalSettings Settings
+        {
+            get
+            {
+                if(settings == null)
+                {
+                    settings = new LocalSettings();
+                }
+                return settings;
+            }
+        }
 
         private ApplicationDataContainer localSettings;
         public LocalSettings()
