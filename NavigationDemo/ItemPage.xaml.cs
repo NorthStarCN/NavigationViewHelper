@@ -65,6 +65,8 @@ namespace NavigationDemo
     {
         public static Color[] RandomColors(int count)
         {
+            if (count <= 0) throw new ArgumentOutOfRangeException(nameof(count));
+
             Random random = new Random();
             Color[] colors = new Color[count];
             for(int index = 0; index < count; index++)

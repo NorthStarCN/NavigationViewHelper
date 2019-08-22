@@ -4,6 +4,7 @@ using System.IO;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using NavigationDemo.Controls.NavigationView;
+using System.Linq;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
@@ -49,6 +50,19 @@ namespace NavigationDemo
                 var invokedItem = args.InvokedItemContainer;
                 pageName = invokedItem.Content as string;
                 RootFrame.Navigate(typeof(ItemPage), pageName);
+            }
+        }
+
+        private void NavigationViewControl_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            if (LocalSettings.Settings.AutoNavigateToHome)
+            {
+                Category first = Categories.FirstOrDefault(v => v is Category) as Category;
+                if (first != null)
+                {
+                    NavigationViewControl.SelectedItem = first;
+                    RootFrame.Navigate(typeof(ItemPage), first.Name);
+                }
             }
         }
     }

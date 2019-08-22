@@ -39,7 +39,8 @@
                         IsPaneOpen="True" IsTabStop="False"
                         ItemInvoked="NavigationView_ItemInvoked"
                         MenuItemTemplateSelector="{StaticResource Selector}"
-                        MenuItemsSource="{x:Bind Categories, Mode=OneWay}">
+                        MenuItemsSource="{x:Bind Categories, Mode=OneWay}"
+                        Loaded="NavigationViewControl_Loaded">
             <NavigationView.Content>
                 <Frame x:Name="RootFrame"/>
             </NavigationView.Content>

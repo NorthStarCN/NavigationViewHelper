@@ -8,8 +8,6 @@
     mc:Ignorable="d"
     Title="Settings"
     PrimaryButtonText="Save"
-    SecondaryButtonText="Don't Save"
-    CloseButtonText="Cancel"
     DefaultButton="Primary">
     <StackPanel Orientation="Vertical">
         <TextBlock>Auto navigate to home page when app started?</TextBlock>
@@ -18,5 +16,6 @@
         <ComboBox SelectedItem="{x:Bind settings.RequestedTheme, Mode=TwoWay}"
                   ItemsSource="{x:Bind Themes}">
         </ComboBox>
+        <TextBlock>Theme will work after restarting the app.</TextBlock>
     </StackPanel>
 </ContentDialog>
