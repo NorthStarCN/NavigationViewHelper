@@ -16,6 +16,8 @@ namespace NavigationDemo
     public sealed partial class MainPage : Page
     {
         RootFrameNavigationHelper navigationHelper;
+        private object lastSelectedItem = null;
+        private bool isLevel1PageNavigation = false;      //是否为一级页面的导航
 
         private List<CategoryBase> Categories = new List<CategoryBase>()
         {
@@ -34,6 +36,8 @@ namespace NavigationDemo
         {
             this.InitializeComponent();
             navigationHelper = new RootFrameNavigationHelper(RootFrame, NavigationViewControl);
+            RootFrame.Navigating += RootFrame_Navigating;
+            RootFrame.Navigated += RootFrame_Navigated;
         }
 
         private async void NavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
@@ -43,10 +47,12 @@ namespace NavigationDemo
             {
                 pageName = "Settings";
                 SettingsDialog dialog = new SettingsDialog();
+                dialog.Closed += SettingsDialogClosed;
                 await dialog.ShowAsync();
             }
             else
             {
+                isLevel1PageNavigation = true;
                 var invokedItem = args.InvokedItemContainer;
                 pageName = invokedItem.Content as string;
                 RootFrame.Navigate(typeof(ItemPage), pageName);
@@ -64,6 +70,36 @@ namespace NavigationDemo
                     RootFrame.Navigate(typeof(ItemPage), first.Name);
                 }
             }
+        }
+
+        /// <summary>
+        /// Recover navigation view selected item after settings dialog closed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SettingsDialogClosed(ContentDialog sender, ContentDialogClosedEventArgs e)
+        {
+            if (lastSelectedItem != null)
+            {
+                NavigationViewControl.SelectedItem = lastSelectedItem;
+            }
+        }
+
+        private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            //一级页面不允许两次导航到相同页面
+            if(isLevel1PageNavigation 
+                && e.NavigationMode == NavigationMode.New 
+                && lastSelectedItem == NavigationViewControl.SelectedItem)
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            lastSelectedItem = NavigationViewControl.SelectedItem;
+            isLevel1PageNavigation = false;
         }
     }
 }

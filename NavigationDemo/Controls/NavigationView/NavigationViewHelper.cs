@@ -59,16 +59,6 @@ namespace NavigationDemo.Controls.NavigationView
                 UpdateNavigationViewSelectedItem(e.NavigationMode);
             };
 
-            this.Frame.Navigating += (s, e) =>
-            {
-                //不允许再次导航到同一页面
-                if(e.NavigationMode == NavigationMode.New &&
-                currentViewItem == this.CurrentNavView.SelectedItem)
-                {
-                    e.Cancel = true;
-                }
-            };
-
             this.CurrentNavView = currentNavView;
             this.GoBackViewItemStack = new Stack<object>();
             this.GoForwardViewItemStack = new Stack<object>();
@@ -154,12 +144,11 @@ namespace NavigationDemo.Controls.NavigationView
         {
             if(mode == NavigationMode.New)
             {
-                var selectedItem = this.CurrentNavView.SelectedItem;
                 if(currentViewItem!=null)
                 {
                     GoBackViewItemStack.Push(currentViewItem);
                 }
-                currentViewItem = selectedItem;
+                currentViewItem = this.CurrentNavView.SelectedItem;
                 GoForwardViewItemStack.Clear();
             }
             else if (mode == NavigationMode.Forward)
